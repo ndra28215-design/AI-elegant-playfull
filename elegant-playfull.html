@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Practical AI consulting, connected systems and thoughtful automation for better business workflows." />
+  <title>AI Systems & Automation — Make Work Flow</title>
+
+  <!-- Tailwind CSS CDN: suitable for a contest prototype. For production, compile Tailwind locally. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            ink: '#193A3A',
+            blue: '#34736F',
+            teal: '#7AB9A8',
+            lime: '#F2C879',
+            coral: '#E98F78',
+            paper: '#FBF8F2'
+          },
+          boxShadow: {
+            soft: '0 20px 55px rgba(42, 69, 61, .09)',
+            card: '0 8px 24px rgba(42, 69, 61, .06)'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; }
+    h1,h2,h3,.display { font-family: 'Manrope', sans-serif; }
+    .editorial-accent { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 700; letter-spacing: -.035em; }
+    .mesh-bg {
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(233,143,120,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 50% 50%, rgba(122,185,168,.20) 1px, transparent 1.6px);
+      background-size: 16px 16px, 24px 24px;
+      background-position: 0 0, 8px 8px;
+      mask-image: radial-gradient(ellipse at center, #000 12%, transparent 68%);
+    }
+    .orb { background: radial-gradient(circle at 35% 30%, #fff 0%, #fbf0df 34%, #e6f3eb 66%, #f5e6de 100%); }
+    .flow-line { stroke-dasharray: 7 8; animation: dash 24s linear infinite; }
+    @keyframes dash { to { stroke-dashoffset: -240; } }
+    .pulse-dot { animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: .55; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.12); } }
+    .lock-mark { animation: lock-breathe 4s ease-in-out infinite; transform-origin: center; }
+    @keyframes lock-breathe { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3px) rotate(-2deg); } }
+    .float { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .logo-tile { transition: transform .25s ease, box-shadow .25s ease; }
+    .logo-tile:hover { transform: translateY(-3px) rotate(-.5deg); box-shadow: 0 12px 24px rgba(42,69,61,.09); }
+    .playful-card { transition: transform .3s ease, box-shadow .3s ease; }
+    .playful-card:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(42,69,61,.09); }
+    .coral-scribble { position: relative; z-index: 0; white-space: nowrap; }
+    .coral-scribble::after { position: absolute; z-index: -1; right: -.04em; bottom: .08em; left: -.04em; height: .16em; border-radius: 999px; background: #F2C879; content: ''; transform: rotate(-2deg); }
+    .grid-dots {
+      background-image: radial-gradient(rgba(40,105,232,.18) 1px, transparent 1px);
+      background-size: 12px 12px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-paper text-ink antialiased">
+  <!-- =========================================================
+       BRAND / CONTENT PLACEHOLDERS
+       Update the brand image if the consultant/company branding changes.
+       Replace the sample email address in the contact section.
+       The dashboard values below are illustrative UI demo data,
+       NOT claims about real clients, results or business metrics.
+  ========================================================== -->
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-50 border-b border-[#E8E2D8] bg-paper/90 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="#top" class="group flex items-center gap-3 transition-transform duration-300 hover:-rotate-1" aria-label="Northstar Systems home">
+        <img src="logo%20png.png" alt="Northstar Systems & Automation" class="h-10 w-auto" />
+      </a>
+
+      <nav class="hidden items-center gap-8 text-sm font-semibold text-slate-600 lg:flex" aria-label="Main navigation">
+        <a class="transition hover:text-blue" href="#systems">Systems</a>
+        <a class="transition hover:text-blue" href="#integrations">Integrations</a>
+        <a class="transition hover:text-blue" href="#process">How it works</a>
+        <a class="transition hover:text-blue" href="#services">Expertise</a>
+      </nav>
+
+      <a href="#contact" class="hidden items-center gap-2 rounded-full bg-blue px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue/20 transition hover:-translate-y-0.5 hover:bg-blue-700 sm:inline-flex">
+        Let's talk <span aria-hidden="true">↗</span>
+      </a>
+      <button id="menuBtn" class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 text-ink lg:hidden" aria-label="Open navigation" aria-expanded="false">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="hidden border-t border-slate-100 bg-white px-5 py-4 lg:hidden">
+      <nav class="mx-auto flex max-w-7xl flex-col gap-4 text-sm font-semibold text-slate-600">
+        <a href="#systems">Systems</a><a href="#integrations">Integrations</a><a href="#process">How it works</a><a href="#services">Expertise</a><a href="#contact" class="font-bold text-blue">Let's talk ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section id="systems" class="relative isolate overflow-hidden bg-paper">
+      <div class="pointer-events-none absolute inset-0 -z-10">
+        <div class="absolute -right-40 -top-48 h-[620px] w-[620px] rounded-full bg-lime/20 blur-3xl"></div>
+        <div class="absolute -left-48 bottom-0 h-[420px] w-[420px] rounded-full bg-teal/10 blur-3xl"></div>
+        <div class="mesh-bg absolute right-0 top-0 h-full w-[52%] opacity-70"></div>
+      </div>
+
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 pt-16 sm:pt-20 lg:grid-cols-[.92fr_1.08fr] lg:gap-8 lg:px-8 lg:pb-28 lg:pt-24">
+        <div class="relative z-10">
+          <div class="mb-7 inline-flex -rotate-1 items-center gap-2 rounded-full border border-[#E9D7C8] bg-white/80 px-3.5 py-2 text-xs font-bold tracking-wide text-ink shadow-sm">
+            <span class="h-2 w-2 rounded-full bg-coral"></span>
+            PRACTICAL AI · CONNECTED SYSTEMS
+          </div>
+          <h1 class="display max-w-2xl text-[2.8rem] font-extrabold leading-[1.08] tracking-[-.055em] text-ink sm:text-6xl xl:text-[4.35rem]">
+            Make your work<br class="hidden sm:block"> flow <span class="editorial-accent coral-scribble inline-block text-blue">smarter</span>.
+          </h1>
+          <p class="mt-7 max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
+            Thoughtful AI and automation that connect your tools, simplify everyday processes and give your team more room to do meaningful work.
+          </p>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="#contact" class="inline-flex items-center justify-center gap-3 rounded-full bg-blue px-7 py-4 text-sm font-bold text-white shadow-lg shadow-blue/15 transition hover:-translate-y-1 hover:rotate-1 hover:bg-blue-700">
+              Explore what’s possible <span class="text-lg">↗</span>
+            </a>
+            <a href="#integrations" class="inline-flex items-center justify-center gap-2 rounded-full border border-[#E6DFD4] bg-white/80 px-7 py-4 text-sm font-bold text-ink transition hover:border-blue/40 hover:text-blue">
+              See how systems connect <span>↓</span>
+            </a>
+          </div>
+          <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-semibold text-slate-500">
+            <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-teal"></span> Built around your workflow</span>
+            <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-coral"></span> Human-first implementation</span>
+          </div>
+        </div>
+
+        <!-- Custom-built system visual: no stock photo or purchased dashboard screenshot. -->
+        <div class="relative mx-auto w-full max-w-[650px] lg:ml-auto">
+          <div class="absolute -left-8 top-12 h-40 w-40 rounded-full border border-coral/20"></div>
+          <div class="absolute -right-5 bottom-2 h-48 w-48 rounded-full border border-teal/30"></div>
+          <div class="orb absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-75 blur-2xl"></div>
+
+          <div class="relative rounded-[2rem] border border-white/90 bg-white/85 p-3 shadow-soft backdrop-blur-xl sm:p-5">
+            <div class="flex items-center justify-between border-b border-slate-100 px-2 pb-4">
+              <div class="flex items-center gap-2">
+                <img src="logo%20N.png" alt="Northstar" class="h-8 w-8 object-contain" />
+                <div><p class="text-xs font-extrabold">System overview</p><p class="text-[10px] text-slate-400">Conceptual workflow preview</p></div>
+              </div>
+              <span class="rounded-full bg-blue/5 px-2.5 py-1.5 text-[9px] font-bold text-blue">EXAMPLE UI</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 p-2 sm:grid-cols-3">
+              <div class="rounded-2xl bg-[#F4F7FC] p-4">
+                <p class="text-[10px] font-semibold text-slate-500">Workflow status</p><strong class="mt-2 block text-xl tracking-tight">Example</strong>
+                <div class="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-200"><div class="h-full w-2/3 rounded-full bg-teal"></div></div>
+              </div>
+              <div class="rounded-2xl bg-[#F4F7FC] p-4">
+                <p class="text-[10px] font-semibold text-slate-500">Connected apps</p><strong class="mt-2 block text-xl tracking-tight">Flexible</strong><p class="mt-2 text-[9px] font-medium text-slate-400">Depends on your tools</p>
+              </div>
+              <div class="col-span-2 rounded-2xl bg-[#F4F7FC] p-4 sm:col-span-1">
+                <p class="text-[10px] font-semibold text-slate-500">Designed for</p><strong class="mt-2 block text-lg">Your process</strong><p class="mt-1 text-[9px] text-slate-400">A tailored approach</p>
+              </div>
+            </div>
+
+            <div class="mx-2 mb-2 rounded-2xl border border-slate-100 bg-white p-4">
+              <div class="mb-4 flex items-center justify-between"><div><p class="text-xs font-extrabold">A connected workflow</p><p class="mt-1 text-[10px] text-slate-400">From incoming request to completed action</p></div><span class="rounded-lg bg-blue/5 px-2 py-1 text-[9px] font-bold text-blue">FLOW 01</span></div>
+              <div class="relative">
+                <svg class="absolute left-0 top-0 h-12 w-full" viewBox="0 0 520 48" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M64 24 H456" stroke="#DCE5F1" stroke-width="2.5" fill="none"/>
+                  <path class="flow-line" d="M64 24 H456" stroke="#2869E8" stroke-width="2.5" fill="none"/>
+                </svg>
+                <div class="relative grid grid-cols-4 gap-1">
+                  <div class="flex flex-col items-center text-center"><span class="grid h-12 w-12 place-items-center rounded-2xl border border-slate-100 bg-[#F3F7FF] text-blue shadow-sm"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H8l-4 3V5Z"/><path d="M8 9h8M8 12h5"/></svg></span><b class="mt-2 text-[10px]">Capture</b><small class="text-[9px] text-slate-400">New request</small></div>
+                  <div class="flex flex-col items-center text-center"><span class="grid h-12 w-12 place-items-center rounded-2xl border border-slate-100 bg-[#F0FBF9] text-teal-700 shadow-sm"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 7v5c0 5 3.5 8 8 9 4.5-1 8-4 8-9V7l-8-4Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><b class="mt-2 text-[10px]">Understand</b><small class="text-[9px] text-slate-400">AI processing</small></div>
+                  <div class="flex flex-col items-center text-center"><span class="grid h-12 w-12 place-items-center rounded-2xl border border-slate-100 bg-[#F8FBEF] text-lime-700 shadow-sm"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span><b class="mt-2 text-[10px]">Connect</b><small class="text-[9px] text-slate-400">Route action</small></div>
+                  <div class="flex flex-col items-center text-center"><span class="grid h-12 w-12 place-items-center rounded-2xl border border-slate-100 bg-[#F3F7FF] text-blue shadow-sm"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12.5 9.5 17 19 7.5"/></svg></span><b class="mt-2 text-[10px]">Complete</b><small class="text-[9px] text-slate-400">Team notified</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between px-3 pb-1 pt-2 text-[9px] font-semibold text-slate-400"><span>DESIGNED AROUND YOUR PROCESS</span><span>Illustrative preview · not live data</span></div>
+          </div>
+
+          <div class="float absolute -left-5 top-[22%] hidden items-center gap-2 rounded-2xl border border-white bg-white px-3 py-2.5 shadow-card sm:flex">
+            <span class="grid h-8 w-8 place-items-center rounded-xl bg-blue/10 text-blue">✳</span><span><b class="block text-[10px]">AI-assisted</b><small class="text-[9px] text-slate-400">Decision support</small></span>
+          </div>
+          <div class="float absolute -right-4 bottom-[14%] hidden items-center gap-2 rounded-2xl border border-white bg-white px-3 py-2.5 shadow-card sm:flex" style="animation-delay:-2s">
+            <span class="grid h-8 w-8 place-items-center rounded-xl bg-lime/40 text-ink">↗</span><span><b class="block text-[10px]">Connected</b><small class="text-[9px] text-slate-400">Tools in sync</small></span>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-blue/20 to-transparent"></div>
+    </section>
+
+    <!-- INTEGRATIONS -->
+    <section id="integrations" class="border-y border-[#E8E2D8] bg-white py-20 sm:py-24">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal grid items-center gap-12 lg:grid-cols-[.78fr_1.22fr]">
+          <div>
+            <span class="text-xs font-extrabold tracking-[.2em] text-blue">ONE CONNECTED ECOSYSTEM</span>
+            <h2 class="display mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">Your tools.<br>Working as <span class="text-blue">one.</span></h2>
+            <p class="mt-5 max-w-md leading-7 text-slate-600">The best system doesn't force you to start over. It helps the tools you already use share information and work in sync.</p>
+            <a href="#contact" class="mt-7 inline-flex items-center gap-2 text-sm font-extrabold text-blue hover:gap-3 transition-all">Connect your workflow <span>→</span></a>
+          </div>
+          <div class="relative">
+            <div class="absolute inset-10 rounded-full bg-blue/[.06] blur-2xl"></div>
+            <div class="relative rounded-[2rem] border border-[#E8E2D8] bg-[#FBF8F2] p-5 sm:p-8">
+              <div class="mb-6 flex items-center justify-between"><span class="rounded-full border border-blue/10 bg-white px-3 py-1.5 text-[9px] font-extrabold tracking-wider text-blue">INTEGRATION MAP</span><span class="text-[9px] font-semibold text-slate-400">CONCEPTUAL VIEW</span></div>
+              <div class="grid grid-cols-3 items-center gap-3 sm:gap-5">
+                <div class="grid gap-3 sm:gap-4">
+                  <div class="logo-tile rounded-2xl border border-[#EAE5DC] bg-white p-3 text-center shadow-sm"><img src="microssoft.png" alt="Microsoft" class="mx-auto h-8 w-full object-contain" /><p class="mt-1 text-[9px] font-bold text-slate-500">Microsoft</p></div>
+                  <div class="logo-tile rounded-2xl border border-[#EAE5DC] bg-white p-3 text-center shadow-sm"><img src="open%20ai.png" alt="OpenAI" class="mx-auto h-8 w-full object-contain" /><p class="mt-1 text-[9px] font-bold text-slate-500">OpenAI</p></div>
+                  <div class="logo-tile rounded-2xl border border-[#EAE5DC] bg-white p-3 text-center shadow-sm"><img src="n8n.png" alt="n8n" class="mx-auto h-8 w-full object-contain" /><p class="mt-1 text-[9px] font-bold text-slate-500">Automation</p></div>
+                </div>
+                <div class="relative flex min-h-[220px] items-center justify-center">
+                  <svg class="absolute inset-0 h-full w-full" viewBox="0 0 180 250" fill="none" aria-hidden="true">
+                    <path d="M0 38 C70 38 55 125 90 125 S110 38 180 38M0 125H180M0 212C70 212 55 125 90 125S110 212 180 212" stroke="#B8CBE8" stroke-width="1.6"/>
+                    <path class="flow-line" d="M0 38 C70 38 55 125 90 125 S110 38 180 38M0 125H180M0 212C70 212 55 125 90 125S110 212 180 212" stroke="#2869E8" stroke-width="1.6"/>
+                  </svg>
+                  <div class="relative z-10 grid h-10 w-10 place-items-center rounded-xl border border-blue/15 bg-white shadow-sm sm:h-24 sm:w-24 sm:rounded-[1.7rem] sm:shadow-soft">
+                    <img src="logo%20N.png" alt="Northstar" class="h-7 w-7 object-contain sm:h-16 sm:w-16" />
+                  </div>
+                  <span class="absolute bottom-2 rounded-full bg-white px-2.5 py-1 text-[8px] font-extrabold tracking-wider text-slate-400 shadow-sm">YOUR SYSTEM</span>
+                </div>
+                <div class="grid gap-3 sm:gap-4">
+                  <div class="logo-tile rounded-2xl border border-[#EAE5DC] bg-white p-3 text-center shadow-sm"><img src="crm.png" alt="CRM" class="mx-auto h-8 w-full object-contain" /><p class="mt-1 text-[9px] font-bold text-slate-500">ERP / CRM</p></div>
+                  <div class="logo-tile rounded-2xl border border-[#EAE5DC] bg-white p-3 text-center shadow-sm"><img src="cloud%20tool.png" alt="Cloud tools" class="mx-auto h-8 w-full object-contain" /><p class="mt-1 text-[9px] font-bold text-slate-500">Cloud tools</p></div>
+                  <div class="logo-tile rounded-2xl border border-[#EAE5DC] bg-white p-3 text-center shadow-sm"><img src="team%20app.png" alt="Team apps" class="mx-auto h-8 w-full object-contain" /><p class="mt-1 text-[9px] font-bold text-slate-500">Team apps</p></div>
+                </div>
+              </div>
+              <p class="mt-6 text-center text-[10px] leading-5 text-slate-400">Illustrative integration ecosystem. Actual connections depend on your existing tools and requirements.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Optional real brand-logo row: replace text marks with approved SVG/PNG brand assets only. -->
+        <div class="reveal mt-12 border-t border-slate-100 pt-7">
+          <p class="mb-5 text-center text-[9px] font-extrabold tracking-[.2em] text-slate-400">TECHNOLOGIES THAT CAN BE PART OF THE ECOSYSTEM</p>
+          <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm font-extrabold text-slate-400 sm:gap-x-12">
+            <span class="tracking-tight">PowerShell</span><span class="text-blue">Azure</span><span class="text-orange-500">Proxmox</span><span>WireGuard</span><span class="text-pink-500">n8n</span><span>Cisco</span><span>ERPNext</span><span>Odoo</span><span class="text-emerald-600">OpenAI</span><span>Anthropic</span><span>Python</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="relative overflow-hidden bg-paper py-20 sm:py-28">
+      <div class="pointer-events-none absolute -right-24 top-20 h-80 w-80 rounded-full bg-lime/20 blur-3xl"></div>
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div><span class="text-xs font-extrabold tracking-[.2em] text-blue">A CLEARER WAY FORWARD</span><h2 class="display mt-4 max-w-xl text-3xl font-extrabold tracking-tight sm:text-5xl">From busywork to <span class="text-blue">better work.</span></h2></div>
+          <p class="max-w-sm leading-7 text-slate-600">Good automation is not a black box. You should be able to see what happens, why it happens and where people stay in control.</p>
+        </div>
+        <div class="reveal relative mt-14 grid gap-4 md:grid-cols-4">
+          <div class="absolute left-[12%] right-[12%] top-9 hidden border-t-2 border-dashed border-blue/20 md:block"></div>
+          <article class="playful-card relative rounded-3xl border border-[#E8E2D8] bg-white p-6 shadow-card">
+            <div class="flex items-center justify-between"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-blue text-xl font-extrabold text-white">01</span><span class="text-2xl text-blue">⌕</span></div>
+            <h3 class="mt-7 text-lg font-extrabold">Understand</h3><p class="mt-2 text-sm leading-6 text-slate-500">Map the real process, spot friction and define what better looks like.</p>
+            <span class="mt-6 inline-block rounded-full bg-blue/5 px-3 py-1 text-[9px] font-bold text-blue">DISCOVER</span>
+          </article>
+          <article class="playful-card relative rounded-3xl border border-[#E8E2D8] bg-white p-6 shadow-card">
+            <div class="flex items-center justify-between"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-[#DDF5F1] text-xl font-extrabold text-emerald-700">02</span><span class="text-2xl text-teal-600">⌘</span></div>
+            <h3 class="mt-7 text-lg font-extrabold">Design</h3><p class="mt-2 text-sm leading-6 text-slate-500">Choose the right tools and shape a practical, connected solution.</p>
+            <span class="mt-6 inline-block rounded-full bg-teal/10 px-3 py-1 text-[9px] font-bold text-emerald-700">PLAN</span>
+          </article>
+          <article class="playful-card relative rounded-3xl border border-[#E8E2D8] bg-white p-6 shadow-card">
+            <div class="flex items-center justify-between"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-lime text-xl font-extrabold text-ink">03</span><span class="text-2xl text-lime-700">↗</span></div>
+            <h3 class="mt-7 text-lg font-extrabold">Connect</h3><p class="mt-2 text-sm leading-6 text-slate-500">Build the workflow, connect your apps and test every handoff.</p>
+            <span class="mt-6 inline-block rounded-full bg-lime/40 px-3 py-1 text-[9px] font-bold text-ink">IMPLEMENT</span>
+          </article>
+          <article class="playful-card relative rounded-3xl border border-[#E8E2D8] bg-white p-6 shadow-card">
+            <div class="flex items-center justify-between"><span class="grid h-12 w-12 place-items-center rounded-2xl bg-ink text-xl font-extrabold text-white">04</span><span class="text-2xl text-blue">◎</span></div>
+            <h3 class="mt-7 text-lg font-extrabold">Improve</h3><p class="mt-2 text-sm leading-6 text-slate-500">Monitor how it performs and refine the system as needs change.</p>
+            <span class="mt-6 inline-block rounded-full bg-slate-100 px-3 py-1 text-[9px] font-bold text-slate-600">OPTIMISE</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="bg-[#F0F5EF] py-20 sm:py-24">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center"><span class="text-xs font-extrabold tracking-[.2em] text-blue">WHAT WE CAN BUILD TOGETHER</span><h2 class="display mt-4 text-3xl font-extrabold tracking-tight sm:text-5xl">Technology with a <span class="text-blue">purpose.</span></h2><p class="mt-5 leading-7 text-slate-600">The right solution starts with your business, not with a tool looking for a problem.</p></div>
+        <div class="reveal mt-12 grid gap-4 md:grid-cols-3">
+          <article class="playful-card group rounded-3xl border border-white bg-white p-7 shadow-card">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-blue/10 text-2xl text-blue">✳</span><h3 class="mt-7 text-xl font-extrabold">AI consulting</h3><p class="mt-3 text-sm leading-6 text-slate-500">Find practical opportunities for AI in your day-to-day operations, with a clear plan for responsible adoption.</p><div class="mt-7 h-px bg-slate-100"></div><p class="mt-4 text-[10px] font-extrabold tracking-wider text-blue">CLARITY BEFORE COMPLEXITY ↗</p>
+          </article>
+          <article class="playful-card group rounded-3xl border border-white bg-white p-7 shadow-card">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-teal/15 text-2xl text-emerald-700">⤳</span><h3 class="mt-7 text-xl font-extrabold">Workflow automation</h3><p class="mt-3 text-sm leading-6 text-slate-500">Reduce repetitive handoffs and connect everyday tasks into dependable, visible workflows.</p><div class="mt-7 h-px bg-slate-100"></div><p class="mt-4 text-[10px] font-extrabold tracking-wider text-blue">LESS REPETITION. MORE FLOW ↗</p>
+          </article>
+          <article class="playful-card group rounded-3xl border border-white bg-white p-7 shadow-card">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-lime/50 text-2xl text-ink">⌘</span><h3 class="mt-7 text-xl font-extrabold">System integration</h3><p class="mt-3 text-sm leading-6 text-slate-500">Help your existing platforms exchange information, stay in sync and support one joined-up process.</p><div class="mt-7 h-px bg-slate-100"></div><p class="mt-4 text-[10px] font-extrabold tracking-wider text-blue">MAKE YOUR TOOLS WORK TOGETHER ↗</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECURITY / TRUST -->
+    <section class="relative overflow-hidden bg-paper py-20 sm:py-24">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-[1fr_.9fr] lg:px-8">
+        <div class="reveal">
+          <span class="text-xs font-extrabold tracking-[.2em] text-blue">BUILT WITH CARE</span>
+          <h2 class="display mt-4 text-3xl font-extrabold tracking-tight sm:text-5xl">Smart systems.<br><span class="text-blue">Thoughtful safeguards.</span></h2>
+          <p class="mt-5 max-w-xl leading-7 text-slate-600">Automation should make work easier without making it harder to understand or control. We consider access, oversight and clear ownership as part of the design.</p>
+          <div class="mt-8 space-y-4">
+            <div class="flex gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-teal/15 text-xs font-black text-emerald-700">✓</span><div><b class="text-sm">Human oversight</b><p class="mt-1 text-sm text-slate-500">Keep people involved where judgement and approval matter.</p></div></div>
+            <div class="flex gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-teal/15 text-xs font-black text-emerald-700">✓</span><div><b class="text-sm">Clear permissions</b><p class="mt-1 text-sm text-slate-500">Consider who and what should have access to each system.</p></div></div>
+            <div class="flex gap-3"><span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-teal/15 text-xs font-black text-emerald-700">✓</span><div><b class="text-sm">Visible operations</b><p class="mt-1 text-sm text-slate-500">Make workflow status and exceptions easier to understand.</p></div></div>
+          </div>
+        </div>
+        <div class="reveal relative mx-auto w-full max-w-md">
+          <div class="absolute inset-8 rounded-full bg-teal/10 blur-3xl"></div>
+          <div class="relative rounded-[2rem] border border-[#E8E2D8] bg-white p-8 shadow-card sm:p-10">
+            <div class="mx-auto grid h-40 w-40 place-items-center rounded-full border border-blue/10 bg-white shadow-inner">
+              <div class="grid h-28 w-28 place-items-center rounded-[2rem] bg-blue/5">
+                <img src="lock.svg" alt="Illustrative security lock" class="lock-mark h-16 w-16 object-contain" />
+              </div>
+            </div>
+            <div class="mt-7 text-center"><span class="inline-flex items-center gap-2 rounded-full bg-teal/10 px-3 py-1.5 text-[10px] font-extrabold text-emerald-700"><span class="pulse-dot h-1.5 w-1.5 rounded-full bg-emerald-500"></span> SECURITY-MINDED BY DESIGN</span><h3 class="mt-4 text-xl font-extrabold">Confidence at every step.</h3><p class="mx-auto mt-2 max-w-xs text-xs leading-5 text-slate-500">An illustrative principle, not a claim of certification or a guarantee of security.</p></div>
+            <div class="mt-7 grid grid-cols-3 gap-2 text-center">
+              <div class="rounded-xl bg-white p-3"><span class="text-lg text-blue">⌑</span><p class="mt-1 text-[9px] font-bold text-slate-500">Access</p></div><div class="rounded-xl bg-white p-3"><span class="text-lg text-teal-600">◎</span><p class="mt-1 text-[9px] font-bold text-slate-500">Oversight</p></div><div class="rounded-xl bg-white p-3"><span class="text-lg text-lime-700">✓</span><p class="mt-1 text-[9px] font-bold text-slate-500">Clarity</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <section id="contact" class="px-5 pb-20 sm:pb-24 lg:px-8">
+      <div class="reveal relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-[#E8D6C8] bg-[#F8EDE3] px-6 py-14 text-ink sm:px-12 sm:py-16">
+        <div class="pointer-events-none absolute -right-20 -top-32 h-96 w-96 rounded-full border border-coral/20"></div><div class="pointer-events-none absolute -right-4 -top-16 h-64 w-64 rounded-full border border-teal/30"></div><div class="pointer-events-none absolute bottom-0 right-1/4 h-48 w-48 rounded-full bg-lime/20 blur-3xl"></div>
+        <div class="relative grid items-center gap-10 lg:grid-cols-[1fr_.72fr]">
+          <div><span class="text-xs font-extrabold tracking-[.2em] text-blue">LET'S MAKE IT WORK BETTER</span><h2 class="display mt-4 max-w-2xl text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl">Ready to connect the dots?</h2><p class="mt-5 max-w-xl leading-7 text-slate-600">Tell us where work gets stuck. We'll explore what a more connected, practical system could look like.</p></div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-card sm:p-6">
+            <p class="text-sm font-extrabold">Start with a conversation.</p><p class="mt-2 text-xs leading-5 text-slate-500">A few details are enough to get the conversation moving.</p>
+            <form id="contactForm" data-recipient="" class="mt-5 space-y-3">
+              <label class="block"><span class="mb-1.5 block text-[10px] font-bold text-slate-600">YOUR NAME</span><input required disabled name="name" type="text" placeholder="Name" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-ink outline-none placeholder:text-slate-400 focus:border-teal disabled:cursor-not-allowed disabled:opacity-60"></label>
+              <label class="block"><span class="mb-1.5 block text-[10px] font-bold text-slate-600">EMAIL ADDRESS</span><input required disabled name="email" type="email" placeholder="you@company.com" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-ink outline-none placeholder:text-slate-400 focus:border-teal disabled:cursor-not-allowed disabled:opacity-60"></label>
+              <label class="block"><span class="mb-1.5 block text-[10px] font-bold text-slate-600">WHAT WOULD YOU LIKE TO IMPROVE?</span><textarea required disabled name="message" rows="3" placeholder="Tell us a little about your workflow..." class="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-ink outline-none placeholder:text-slate-400 focus:border-teal disabled:cursor-not-allowed disabled:opacity-60"></textarea></label>
+              <button type="submit" disabled class="flex w-full items-center justify-center gap-2 rounded-full bg-blue px-5 py-3.5 text-sm font-extrabold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50">Prepare email <span>↗</span></button>
+              <p id="formNote" class="text-center text-[10px] leading-4 text-slate-600" role="status">Enquiry form unavailable until a business email is configured.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-[#E8E2D8] bg-paper">
+    <div class="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+      <a href="#top" class="flex items-center gap-2" aria-label="Northstar Systems home"><img src="logo%20png.png" alt="Northstar Systems & Automation" class="h-8 w-auto" /></a>
+      <p class="text-xs text-slate-400">Practical AI. Connected systems. Better work.</p>
+      <a href="#top" class="text-xs font-bold text-slate-500 transition hover:text-blue">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!isOpen));
+      mobileMenu.classList.toggle('hidden', isOpen);
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Reveal sections as they enter the viewport
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Contact form demo: opens the visitor's email app.
+    const contactForm = document.getElementById('contactForm');
+    const formNote = document.getElementById('formNote');
+    const formFields = contactForm.querySelectorAll('input, textarea, button');
+    if (contactForm.dataset.recipient.trim()) {
+      formFields.forEach(field => { field.disabled = false; });
+      formNote.classList.add('hidden');
+    }
+
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const recipient = contactForm.dataset.recipient.trim();
+      if (!recipient) {
+        formNote.textContent = 'This form is not connected yet. Add the business email to the form before launch.';
+        formNote.classList.remove('hidden');
+        return;
+      }
+
+      const data = new FormData(contactForm);
+      const subject = encodeURIComponent('Website enquiry — AI & Automation');
+      const body = encodeURIComponent(
+        `Name: ${data.get('name')}\nEmail: ${data.get('email')}\n\nWhat they would like to improve:\n${data.get('message')}`
+      );
+      formNote.textContent = 'Your email app should open with the enquiry ready to send.';
+      formNote.classList.remove('hidden');
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
